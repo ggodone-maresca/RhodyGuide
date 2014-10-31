@@ -41,8 +41,7 @@ public class MainActivity extends Activity {
     /** Called when the user clicks the Guest button */
     public void guestUser(View view) {
     	
-    	login = getUser();
-    	password = getPassword();
+
     }    
     
     private String getUser() {
@@ -53,7 +52,6 @@ public class MainActivity extends Activity {
     	return ((EditText)findViewById(R.id.pass)).getText().toString();
     }
     
-
     /**
      * A placeholder fragment containing a simple view.
      */
