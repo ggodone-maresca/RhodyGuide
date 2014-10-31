@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RhodyGuide</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="submit_button">Submit</string>
+    <string name="register_button">Register Now</string>
+    <string name="guest_button">Use As Guest</string>
+
+</resources>
