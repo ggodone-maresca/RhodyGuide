@@ -35,7 +35,7 @@
         android:layout_below="@+id/pass"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:src="@drawable/submit_normal" 
+        android:src="@drawable/submitbutton" 
         android:background="@null"
         android:onClick="submitUser"/>
     <ImageButton
@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/submitButton"
         android:layout_marginTop="8dp"
-        android:src="@drawable/register_normal" 
+        android:src="@drawable/registerbutton" 
         android:background="@null"
         android:onClick="registerUser"/>
     <ImageButton
@@ -55,7 +55,7 @@
         android:layout_below="@+id/registerButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:src="@drawable/guest_normal" 
+        android:src="@drawable/guestbutton" 
         android:background="@null"
         android:onClick="guestUser"/>
 

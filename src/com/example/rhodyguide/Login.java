@@ -1,7 +1,9 @@
 package com.example.rhodyguide;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -20,22 +22,30 @@ public class Login extends Activity {
     }
     
     /** Called when the user clicks the Submit button */
-    public void submitUser(View view) {
+    public void submitUser(View v) {
         
     	login = getUser();
     	password = getPassword();
     	
+    	Log.e("Clicked", "Submit Clicked");
     }    
     
     /** Called when the user clicks the Register button */
-    public void registerUser(View view) {
+    public void registerUser(View v) {
     	
     	login = getUser();
     	password = getPassword();
+    	
+    	Log.e("Clicked", "Register Clicked");
     }    
     
     /** Called when the user clicks the Guest button */
-    public void guestUser(View view) {
+    public void guestUser(View v) {
+    	
+    	Log.e("Clicked", "Guest Clicked");
+    	
+    	Intent intent = new Intent(this, MapActivity.class);
+    	startActivity(intent);
     	
     }    
     
