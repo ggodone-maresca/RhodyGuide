@@ -5,6 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     
+    <string name="userHint">Username</string>
+    <string name="passHint">Password</string>
     <string name="submit_button">Submit</string>
     <string name="register_button">Register Now</string>
     <string name="guest_button">Use As Guest</string>
