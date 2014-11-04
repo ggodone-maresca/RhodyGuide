@@ -8,6 +8,9 @@
 package com.example.rhodyguide;
 
 public final class R {
+    public static final class array {
+        public static final int item_array=0x7f090000;
+    }
     public static final class attr {
         /** 
     The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
@@ -416,48 +419,50 @@ containing a value of this type.
         public static final int powered_by_google_dark=0x7f020026;
         public static final int powered_by_google_light=0x7f020027;
         public static final int ram=0x7f020028;
-        public static final int register_focused=0x7f020029;
-        public static final int register_normal=0x7f02002a;
-        public static final int register_pressed=0x7f02002b;
-        public static final int registerbutton=0x7f02002c;
-        public static final int submit_focused=0x7f02002d;
-        public static final int submit_normal=0x7f02002e;
-        public static final int submit_pressed=0x7f02002f;
-        public static final int submitbutton=0x7f020030;
+        public static final int ram2=0x7f020029;
+        public static final int register_focused=0x7f02002a;
+        public static final int register_normal=0x7f02002b;
+        public static final int register_pressed=0x7f02002c;
+        public static final int registerbutton=0x7f02002d;
+        public static final int submit_focused=0x7f02002e;
+        public static final int submit_normal=0x7f02002f;
+        public static final int submit_pressed=0x7f020030;
+        public static final int submitbutton=0x7f020031;
     }
     public static final class id {
-        public static final int action_example=0x7f0a001f;
-        public static final int action_settings=0x7f0a001e;
-        public static final int book_now=0x7f0a000e;
-        public static final int buyButton=0x7f0a000a;
-        public static final int buy_now=0x7f0a000f;
-        public static final int buy_with_google=0x7f0a0010;
-        public static final int classic=0x7f0a0011;
-        public static final int container=0x7f0a001b;
-        public static final int drawer_layout=0x7f0a001a;
-        public static final int grayscale=0x7f0a0012;
-        public static final int guestButton=0x7f0a0018;
-        public static final int holo_dark=0x7f0a0005;
-        public static final int holo_light=0x7f0a0006;
-        public static final int hybrid=0x7f0a0000;
-        public static final int logo=0x7f0a0019;
-        public static final int map=0x7f0a001d;
-        public static final int match_parent=0x7f0a000c;
-        public static final int monochrome=0x7f0a0013;
-        public static final int navigation_drawer=0x7f0a001c;
-        public static final int none=0x7f0a0001;
-        public static final int normal=0x7f0a0002;
-        public static final int pass=0x7f0a0015;
-        public static final int production=0x7f0a0007;
-        public static final int registerButton=0x7f0a0017;
-        public static final int sandbox=0x7f0a0008;
-        public static final int satellite=0x7f0a0003;
-        public static final int selectionDetails=0x7f0a000b;
-        public static final int strict_sandbox=0x7f0a0009;
-        public static final int submitButton=0x7f0a0016;
-        public static final int terrain=0x7f0a0004;
-        public static final int user=0x7f0a0014;
-        public static final int wrap_content=0x7f0a000d;
+        public static final int action_example=0x7f0b0020;
+        public static final int action_settings=0x7f0b001f;
+        public static final int book_now=0x7f0b000e;
+        public static final int buyButton=0x7f0b000a;
+        public static final int buy_now=0x7f0b000f;
+        public static final int buy_with_google=0x7f0b0010;
+        public static final int classic=0x7f0b0011;
+        public static final int container=0x7f0b001b;
+        public static final int drawer_layout=0x7f0b001a;
+        public static final int grayscale=0x7f0b0012;
+        public static final int guestButton=0x7f0b0018;
+        public static final int holo_dark=0x7f0b0005;
+        public static final int holo_light=0x7f0b0006;
+        public static final int hybrid=0x7f0b0000;
+        public static final int left_drawer=0x7f0b001c;
+        public static final int logo=0x7f0b0019;
+        public static final int map=0x7f0b001d;
+        public static final int match_parent=0x7f0b000c;
+        public static final int monochrome=0x7f0b0013;
+        public static final int none=0x7f0b0001;
+        public static final int normal=0x7f0b0002;
+        public static final int pass=0x7f0b0015;
+        public static final int production=0x7f0b0007;
+        public static final int registerButton=0x7f0b0017;
+        public static final int sandbox=0x7f0b0008;
+        public static final int satellite=0x7f0b0003;
+        public static final int section_label=0x7f0b001e;
+        public static final int selectionDetails=0x7f0b000b;
+        public static final int strict_sandbox=0x7f0b0009;
+        public static final int submitButton=0x7f0b0016;
+        public static final int terrain=0x7f0b0004;
+        public static final int user=0x7f0b0014;
+        public static final int wrap_content=0x7f0b000d;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
@@ -465,18 +470,21 @@ containing a value of this type.
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_map=0x7f030001;
-        public static final int fragment_navigation_drawer=0x7f030002;
-        public static final int map_layout=0x7f030003;
+        public static final int drawer_list_item=0x7f030002;
+        public static final int fragment_main=0x7f030003;
+        public static final int fragment_navigation_drawer=0x7f030004;
+        public static final int map_layout=0x7f030005;
     }
     public static final class menu {
-        public static final int global=0x7f090000;
-        public static final int main=0x7f090001;
-        public static final int map=0x7f090002;
+        public static final int global=0x7f0a0000;
+        public static final int main=0x7f0a0001;
+        public static final int map=0x7f0a0002;
     }
     public static final class string {
         public static final int accept=0x7f050002;
-        public static final int action_example=0x7f05002f;
+        public static final int action_example=0x7f05002c;
         public static final int action_settings=0x7f050025;
+        public static final int action_websearch=0x7f05002d;
         public static final int app_name=0x7f050023;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */
@@ -580,18 +588,15 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f050005;
         public static final int create_calendar_title=0x7f050004;
         public static final int decline=0x7f050003;
+        public static final int drawer_close=0x7f05002b;
+        public static final int drawer_open=0x7f05002a;
         public static final int guest_button=0x7f050028;
         public static final int hello_world=0x7f050024;
-        public static final int navigation_drawer_close=0x7f05002e;
-        public static final int navigation_drawer_open=0x7f05002d;
         public static final int register_button=0x7f050027;
         public static final int store_picture_message=0x7f050001;
         public static final int store_picture_title=0x7f050000;
         public static final int submit_button=0x7f050026;
         public static final int title_activity_map=0x7f050029;
-        public static final int title_section1=0x7f05002a;
-        public static final int title_section2=0x7f05002b;
-        public static final int title_section3=0x7f05002c;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */

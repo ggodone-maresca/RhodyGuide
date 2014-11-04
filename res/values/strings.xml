@@ -4,15 +4,23 @@
     <string name="app_name">RhodyGuide</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
     <string name="submit_button">Submit</string>
     <string name="register_button">Register Now</string>
     <string name="guest_button">Use As Guest</string>
+    
     <string name="title_activity_map">MapActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_example">This useless bitch works</string>
+   
+    <string-array name="item_array">
+        <item>My Profile</item>
+        <item>View Class Schedule</item>
+        <item>Edit Class Schedule</item>
+        <item>Add Via Point</item>
+    </string-array>
+    
+    <string name="action_websearch">Web search</string>
+    
 </resources>
