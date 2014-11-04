@@ -67,6 +67,6 @@
         android:layout_alignLeft="@+id/registerButton"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/submitButton"
-        android:src="@drawable/ram" />
+        android:src="@drawable/ram2" />
     
 </RelativeLayout>

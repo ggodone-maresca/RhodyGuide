@@ -8,9 +8,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.app.Activity;
-
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -30,6 +28,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,14 +43,8 @@ public class MapActivity extends Activity {
 
     private CharSequence mDrawerTitle;
     private String[] mItemTitles;
-	
-	/**
-	 * Used to store the last screen title. For use in
-	 * {@link #restoreActionBar()}.
-	 */
 	private CharSequence mTitle;
 	
-	private double X, Y;
 	private GPSTracker mGPS;
 	private LatLng here;
 
@@ -60,18 +53,17 @@ public class MapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 
-		
 		mTitle = mDrawerTitle = getTitle();
 		mItemTitles = getResources().getStringArray(R.array.item_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         
-     // set a custom shadow that overlays the main content when the drawer opens
+        // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mItemTitles));
-//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,7 +110,14 @@ public class MapActivity extends Activity {
                 .snippet("This motherfucker works")
                 .position(here));
 	}
-
+	
+    /* The click listener for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
