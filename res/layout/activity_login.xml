@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="${relativePackage}.${activityClass}" >
 
     <EditText
@@ -10,11 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="206dp"
+        android:layout_marginTop="235dp"
         android:ems="10"
         android:background="#ffffff"
         android:inputType="textEmailAddress" 
-        android:hint="@string/userHint" >
+        android:hint="@string/userHint" 
+        android:padding="12dp" >
         <requestFocus />
     </EditText>
 
@@ -28,7 +30,8 @@
         android:ems="10"
         android:background="#ffffff"
         android:inputType="textPassword" 
-        android:hint="@string/passHint" />
+        android:hint="@string/passHint" 
+        android:padding="12dp"/>
     
     <ImageButton
         android:id="@+id/submitButton"
@@ -65,10 +68,11 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/pass"
-        android:layout_alignLeft="@+id/registerButton"
+        android:layout_above="@+id/user"
+        android:layout_alignLeft="@+id/user"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/submitButton"
-        android:src="@drawable/ram2" />
-    
+        android:layout_alignRight="@+id/user"
+        android:src="@drawable/ram" 
+        android:layout_marginTop="10dp"/>
+        
 </RelativeLayout>

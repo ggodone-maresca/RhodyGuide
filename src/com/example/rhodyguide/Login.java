@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.os.Build;
 
@@ -13,11 +12,15 @@ public class Login extends Activity {
 
 	private String login, password;
 	
+	private Server server;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        server = new Server();
+        
         getActionBar().hide();
     }
     

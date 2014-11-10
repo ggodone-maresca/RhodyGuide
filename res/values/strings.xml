@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    
     <string name="app_name">RhodyGuide</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     
     <string name="userHint">Username</string>
@@ -22,7 +21,5 @@
         <item>Edit Class Schedule</item>
         <item>Add Via Point</item>
     </string-array>
-    
-    <string name="action_websearch">Web search</string>
-    
+       
 </resources>
