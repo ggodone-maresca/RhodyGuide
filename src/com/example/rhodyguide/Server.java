@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class Server {
 	
@@ -38,13 +39,14 @@ public class Server {
 		    throw new RuntimeException("Cannot find the driver in the classpath!", e);
 		}
 		
-		String url = "jdbc:mysql://localhost:3306/URI";
-		String username = "root";
-		String password = "";
+		String url = "jdbc:mysql://abouthillier.vps.cs.uri.edu:3306/abouthil_rhodyguide";
+		String username = "abouthil";
+		String password = "=Gqk0TOf*D]I";
 		Connection connection = null;
 		try {
 		    System.out.println("Connecting database...");
 		    connection = DriverManager.getConnection(url, username, password);
+		    Log.e("Test", "Connected");
 		    System.out.println("Database connected!");
 		} catch (SQLException e) {
 		    throw new RuntimeException("Cannot connect the database!", e);
