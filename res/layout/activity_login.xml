@@ -9,14 +9,16 @@
         android:id="@+id/user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pass"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/pass"
         android:layout_marginTop="235dp"
-        android:ems="10"
         android:background="#ffffff"
-        android:inputType="textEmailAddress" 
-        android:hint="@string/userHint" 
+        android:ems="10"
+        android:hint="@string/userHint"
+        android:inputType="textEmailAddress"
         android:padding="12dp" >
+
         <requestFocus />
     </EditText>
 
@@ -24,14 +26,15 @@
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/submitButton"
+        android:layout_alignRight="@+id/submitButton"
         android:layout_below="@+id/user"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:ems="10"
         android:background="#ffffff"
-        android:inputType="textPassword" 
-        android:hint="@string/passHint" 
-        android:padding="12dp"/>
+        android:ems="10"
+        android:hint="@string/passHint"
+        android:inputType="textPassword"
+        android:padding="12dp" />
     
     <ImageButton
         android:id="@+id/submitButton"
@@ -67,12 +70,12 @@
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/user"
-        android:layout_alignLeft="@+id/user"
+        android:layout_height="210dp"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/user"
-        android:src="@drawable/ram" 
-        android:layout_marginTop="10dp"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ram" />
         
 </RelativeLayout>
