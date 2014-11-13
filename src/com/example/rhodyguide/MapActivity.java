@@ -60,11 +60,6 @@ public class MapActivity extends Activity {
 		dataList.add(new DrawerItem("Import & Export",
 				R.drawable.ic_action_import_export));
 
-		dataList.add(new DrawerItem("Other Options")); // adding a header to the list
-		dataList.add(new DrawerItem("About", R.drawable.ic_action_about));
-		dataList.add(new DrawerItem("Settings", R.drawable.ic_action_settings));
-		dataList.add(new DrawerItem("Help", R.drawable.ic_action_help));
-
 		adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
 				dataList);
 
@@ -122,11 +117,9 @@ public class MapActivity extends Activity {
 		
 		case 0: 
 			fragment = new FragmentMap();
-			
 			break;
 		
 		case 1: 
-			
 			break;
 
 		case 2:
@@ -192,39 +185,11 @@ public class MapActivity extends Activity {
 			args.putInt(FragmentThree.IMAGE_RESOURCE_ID, dataList
 					.get(possition).getImgResID());
 			break;
-		case 12:
-			fragment = new FragmentOne();
-			args.putString(FragmentOne.ITEM_NAME, dataList.get(possition)
-					.getItemName());
-			args.putInt(FragmentOne.IMAGE_RESOURCE_ID, dataList.get(possition)
-					.getImgResID());
+		default:
 			break;
-		case 14:
-			fragment = new FragmentThree();
-			args.putString(FragmentThree.ITEM_NAME, dataList.get(possition)
-					.getItemName());
-			args.putInt(FragmentThree.IMAGE_RESOURCE_ID, dataList.get(possition)
-					.getImgResID());
-			break;	
-		case 15:
-			fragment = new FragmentOne();
-			args.putString(FragmentOne.ITEM_NAME, dataList.get(possition)
-					.getItemName());
-			args.putInt(FragmentOne.IMAGE_RESOURCE_ID, dataList.get(possition)
-					.getImgResID());
-			break;
-		case 16:
-			fragment = new FragmentTwo();
-			args.putString(FragmentTwo.ITEM_NAME, dataList.get(possition)
-					.getItemName());
-			args.putInt(FragmentTwo.IMAGE_RESOURCE_ID, dataList.get(possition)
-					.getImgResID());
-			break;
-			default:
-				break;
 		}
 
-		fragment.setArguments(args);
+//			fragment.setArguments(args);
 		FragmentManager frgManager = getFragmentManager();
 		frgManager.beginTransaction().replace(R.id.content_frame, fragment)
 				.commit();
@@ -274,8 +239,6 @@ public class MapActivity extends Activity {
 			if (dataList.get(position).getTitle() == null) {
 				SelectItem(position);
 			}
-
 		}
 	}
-
 }
