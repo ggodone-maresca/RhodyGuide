@@ -1,12 +1,13 @@
 package com.example.rhodyguide;
 
+import java.sql.SQLException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.os.Build;
 
 public class Login extends Activity {
 
@@ -19,7 +20,7 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        server = new Server();
+        server = new Server(Login.this);
         
         getActionBar().hide();
     }
@@ -29,7 +30,13 @@ public class Login extends Activity {
         
     	login = getUser();
     	password = getPassword();
-    	
+    	    	
+    	try {
+    		server.checkUser(login, password);
+    	} catch(SQLException e){
+    		e.printStackTrace();
+    	}
+  
     	Log.e("Clicked", "Submit Clicked");
     }    
     
