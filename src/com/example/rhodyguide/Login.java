@@ -32,7 +32,6 @@ public class Login extends Activity {
     	password = getPassword();
     	    	
     	try {
-    		server.setup();
     		server.checkUser(login, password);
     	} catch(SQLException e){
     		e.printStackTrace();
