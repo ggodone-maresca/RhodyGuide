@@ -54,7 +54,7 @@ public class MapActivity extends Activity {
 		dataList.add(new DrawerItem("Main Options"));// adding a header to the list
 		dataList.add(new DrawerItem("Search", R.drawable.ic_action_search));
 		dataList.add(new DrawerItem("Cloud", R.drawable.ic_action_cloud));
-		dataList.add(new DrawerItem("Camara", R.drawable.ic_action_camera));
+		dataList.add(new DrawerItem("Camera", R.drawable.ic_action_camera));
 		dataList.add(new DrawerItem("Video", R.drawable.ic_action_video));
 		dataList.add(new DrawerItem("Groups", R.drawable.ic_action_group));
 		dataList.add(new DrawerItem("Import & Export",
