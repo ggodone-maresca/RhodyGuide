@@ -166,13 +166,128 @@ public class Server extends AsyncTask<String, Void, String> {
 					e.printStackTrace();
 				} 	
 	    }
-	}	
+	}
+	
+	public int getID(String userName, String password){
+		
+		int userID = 0;
+		Statement stmt = null;
+	    String query = "SELECT ID FROM users "
+	    		+ "WHERE username LIKE '"+userName+"' "
+				+ "AND password LIKE '"+password+"'";	    		    
+	    try {
+	        stmt = connection.createStatement();
+	        ResultSet rs = stmt.executeQuery(query);
+	        
+	        while(rs.next()){
+	        	userID = rs.getInt("ID");
+	        }
+	        		        	        
+	    } catch (SQLException e ) {
+	    	System.out.println(e.getMessage());
+	    } finally {
+	        if (stmt != null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 	
+	    }
+		
+		return userID;
+	}
+	
+	public void newCourse(int UserID, String courseSubject, String courseNumber,
+			String courseSection) {
+		
+		Statement stmt = null;
+	    String query = "INSERT INTO courses "
+	    		+ "(ID, course_subject, catalog_number, section) "
+	    		+ "VALUES ('"+UserID+"', '"+courseSubject+"', "
+	    				+ "'"+courseNumber+"', '"+courseSection+"')";	    		    
+	    try {
+	        stmt = connection.createStatement();
+	        stmt.executeUpdate(query);
+	        		        	        
+	    } catch (SQLException e ) {
+	    	System.out.println(e.getMessage());
+	    } finally {
+	        if (stmt != null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 	
+	    }
+	}
+	
+	public int howManyCourses(int userID){
+	
+		int count = 0;
+		Statement stmt = null;
+		String query = "SELECT COUNT(*) FROM courses WHERE ID LIKE "+userID+"";
+		
+		try {
+	        stmt = connection.createStatement();	        
+	        ResultSet rs = stmt.executeQuery(query);
+	        
+	        while (rs.next())
+	        	count = rs.getInt(1);
+	        	        		        	        
+	    } catch (SQLException e ) {
+	    	System.out.println(e.getMessage());
+	    } finally {
+	        if (stmt != null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+	    }	
+		return count;	
+	}
+	
+	public Course[] getCourses(int userID){
+		
+		Course[] courses = new Course[howManyCourses(userID)];
+		Statement stmt = null;
+		String query = "SELECT * FROM courses WHERE ID LIKE "+userID+"";
+		
+		try {
+	        stmt = connection.createStatement();	        
+	        ResultSet rs = stmt.executeQuery(query);
+	        
+	        int i = 0;	        
+	        while (rs.next()){
+	        	
+	        	String subject = rs.getString("course_subject");
+	        	String catalog = rs.getString("catalog_number");
+	        	String section = rs.getString("section");
+	        	
+	        	courses[i] = new Course(subject, catalog, section);
+	        }
+	        	        		        	        
+	    } catch (SQLException e ) {
+	    	System.out.println(e.getMessage());
+	    } finally {
+	        if (stmt != null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 	
+	    }	
+		return courses;		
+	}
 	
 	@Override
 	protected String doInBackground(String... params) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
 

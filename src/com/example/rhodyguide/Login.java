@@ -12,6 +12,7 @@ public class Login extends Activity {
 	
 	public final static String FIRST = "com.example.rhodyguide.FIRST";
 	public final static String LAST = "com.example.rhodyguide.LAST";
+	public final static String USERID = "com.example.rhodyguide.USERID";
 
 	private String login, password;
 	
@@ -37,10 +38,13 @@ public class Login extends Activity {
     	    	
     	try {
     		if(server.checkUser(login, password)){
+    			
+    			int userID = server.getID(login, password);
     			System.out.println("User valid");
     			name = server.getName(login, password);
     			
     	    	Intent intent = new Intent(this, MapActivity.class);
+    	    	intent.putExtra("USERID", userID);
     	    	intent.putExtra("FIRST", name[0]);
     	    	intent.putExtra("LAST", name[1]);
     	    	startActivity(intent);

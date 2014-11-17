@@ -27,7 +27,6 @@ public class MapActivity extends Activity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 
-
 	// slide menu items
 	private String[] navMenuTitles;
 	private TypedArray navMenuIcons;
@@ -35,12 +34,14 @@ public class MapActivity extends Activity {
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 	
+	private int userID;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		mTitle = mDrawerTitle = getTitle();
+		mTitle = mDrawerTitle = "";
 
 		// load slide menu items
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -52,7 +53,6 @@ public class MapActivity extends Activity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-<<<<<<< HEAD
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
 		// adding nav drawer items to array
@@ -71,16 +71,6 @@ public class MapActivity extends Activity {
 		
 		// Recycle the typed array
 		navMenuIcons.recycle();
-=======
-		dataList.add(new DrawerItem("Main Options"));// adding a header to the list
-		dataList.add(new DrawerItem("Search", R.drawable.ic_action_search));
-		dataList.add(new DrawerItem("Cloud", R.drawable.ic_action_cloud));
-		dataList.add(new DrawerItem("Camera", R.drawable.ic_action_camera));
-		dataList.add(new DrawerItem("Video", R.drawable.ic_action_video));
-		dataList.add(new DrawerItem("Groups", R.drawable.ic_action_group));
-		dataList.add(new DrawerItem("Import & Export",
-				R.drawable.ic_action_import_export));
->>>>>>> FETCH_HEAD
 
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
@@ -116,7 +106,8 @@ public class MapActivity extends Activity {
 			// on first time display view for first nav item
 			displayView(0);
 		}
-
+		
+		userID = getIntent().getIntExtra("USERID", -1);
 	}
 	
 	/**
@@ -130,6 +121,10 @@ public class MapActivity extends Activity {
 			// display view for selected nav drawer item
 			displayView(position);
 		}
+	}
+	
+	public int getUserID() {
+		return userID;
 	}
 
 	@Override
@@ -176,7 +171,7 @@ public class MapActivity extends Activity {
 			fragment = new FragmentMap();
 			break;
 		case 1:
-			fragment = new FindPeopleFragment();
+			fragment = new EditScheduleFragment();
 			break;
 		case 2:
 			fragment = new PhotosFragment();
