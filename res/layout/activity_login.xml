@@ -71,10 +71,9 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="210dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/user"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/user"
-        android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/ram2" />
         
