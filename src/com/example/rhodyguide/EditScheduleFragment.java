@@ -37,6 +37,8 @@ public class EditScheduleFragment extends Fragment implements OnClickListener{
         
         courses = server.getCourses(userID);
         
+        printCourses();
+        
         return rootView;
     }
 	

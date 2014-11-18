@@ -1,6 +1,7 @@
 package com.example.rhodyguide;
 
 import java.sql.SQLException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,13 +19,13 @@ public class Login extends Activity {
 	
 	private Server server;
 	
+	private Thread thread;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        server = new Server(Login.this);
-        
+               
         getActionBar().hide();
     }
     
@@ -34,29 +35,40 @@ public class Login extends Activity {
     	login = getUser();
     	password = getPassword();
     	
-    	String[] name = new String[2];
+    	final Intent intent = new Intent(this, MapActivity.class);
     	    	
-    	try {
-    		if(server.checkUser(login, password)){
-    			
-    			int userID = server.getID(login, password);
-    			System.out.println("User valid");
-    			name = server.getName(login, password);
-    			
-    	    	Intent intent = new Intent(this, MapActivity.class);
-    	    	intent.putExtra("USERID", userID);
-    	    	intent.putExtra("FIRST", name[0]);
-    	    	intent.putExtra("LAST", name[1]);
-    	    	startActivity(intent);
-    		}
-    		else {
-    			System.out.println("Not a user");
-    			name[0] = "Guest";
-    			name[1] = "User";
-    		}
-    	} catch(SQLException e){
-    		e.printStackTrace();
-    	}
+    	thread = new Thread(new Runnable(){
+		    @Override
+		    public void run() {
+		    	
+		        server = new Server();		    	
+		    	server.setup();
+		    	
+		    	String[] name = new String[2];
+
+		    	try {
+		    		if (server.checkUser(login, password)){
+		    			
+		    			int userID = server.getID(login, password);
+		    			System.out.println("User valid");
+		    			name = server.getName(login, password);
+		    			
+		    	    	intent.putExtra("USERID", userID);
+		    	    	intent.putExtra("FIRST", name[0]);
+		    	    	intent.putExtra("LAST", name[1]);
+		    	    	startActivity(intent);
+		    		}
+		    		else {
+		    			System.out.println("Not a user");
+		    			name[0] = "Guest";
+		    			name[1] = "User";
+		    		}
+		    	} catch(SQLException e){
+		    		e.printStackTrace();
+		    	}
+		    }
+		});
+		thread.start(); 
   
     	Log.e("Clicked", "Submit Clicked");
     }    
@@ -79,7 +91,6 @@ public class Login extends Activity {
     	
     	Intent intent = new Intent(this, MapActivity.class);
     	startActivity(intent);
-    	
     }    
     
     private String getUser() {
