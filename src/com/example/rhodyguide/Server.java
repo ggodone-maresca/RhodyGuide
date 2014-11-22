@@ -17,52 +17,46 @@ public class Server extends AsyncTask<String, Void, String> {
 //	private static String url = "jdbc:mysql://abouthillier.vps.cs.uri.edu:3306/abouthil_rhodyguide";
 //	private static String username = "abouthil";
 //	private static String password = "=Gqk0TOf*D]I";
+//	
 	
-	private static String url = "jdbc:mysql://172.20.104.99:3306/Test";
-	private static String username = "testing";
-	private static String password = "test";
+	private static String ipAddress = "172.20.104.99";
+	private static String url = "jdbc:mysql://"+ipAddress+"/Test";
+	private static String username = "root";
 	
-	private Thread thread;
-	private Activity activity;
-	
-	public Server(Activity activity) {
+	private static String url2 = ""+url+"?user="+username+"";
 		
-		this.activity = activity;
-			
-		thread = new Thread(new Runnable(){
-		    @Override
-		    public void run() {
-		        try {
-		    		setup();
-		    	} catch (Exception e) {
-		            e.printStackTrace();
-		        }
-		    }
-		});
-		thread.start(); 
+	public Server(Activity activity) {}
+	
+	public Server() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void setup() {
+		
+        try {
+			try {
+			    System.out.println("Loading driver...");
+			    Class.forName("com.mysql.jdbc.Driver");
+			    System.out.println("Driver loaded!");
+			} catch (ClassNotFoundException e) {
+			    throw new RuntimeException("Cannot find the driver in the classpath!", e);
+			}
+			connect();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	
-	public void setup() {
-	
-		try {
-		    System.out.println("Loading driver...");
-		    Class.forName("com.mysql.jdbc.Driver");
-		    System.out.println("Driver loaded!");
-		} catch (ClassNotFoundException e) {
-		    throw new RuntimeException("Cannot find the driver in the classpath!", e);
-		}
-		
+	public void connect() {
 		connection = null;
 		try {
 		    System.out.println("Connecting database...");
-		    connection = DriverManager.getConnection(url, username, password);
+		    connection = DriverManager.getConnection(url2);
 		    System.out.println("Database connected!");
+			isSetUp = true;
 		} catch (SQLException e) {
-		    throw new RuntimeException("Cannot connect the database!", e);
+		    throw new RuntimeException("Cannot connect to the database!", e);
 		} 
-		
-		isSetUp = true;
-		
 	}
 	
 	public boolean checkUser(String userName, String password)
@@ -80,7 +74,7 @@ public class Server extends AsyncTask<String, Void, String> {
 		    String query = "SELECT COUNT(*) FROM users "
 		    		+ "WHERE username LIKE '"+userName+"' "
     					+ "AND password LIKE '"+password+"'";
-		    		    
+		    
 		    try {
 		        stmt = connection.createStatement();
 		        ResultSet rs = stmt.executeQuery(query);
@@ -101,10 +95,10 @@ public class Server extends AsyncTask<String, Void, String> {
 		        	stmt.close(); 	
 		    }
 		}
-		else {
-			setup();
-			isUser = checkUser(userName, password);
-		}
+//		else {
+//			setup();
+//			isUser = checkUser(userName, password);
+//		}
 		return isUser;
 	}
 	
@@ -121,6 +115,8 @@ public class Server extends AsyncTask<String, Void, String> {
 	    		+ "WHERE username LIKE '"+userName+"' "
 					+ "AND password LIKE '"+password+"'";	    		    
 	    try {
+	    	if (connection == null)
+	    		connectAgain();
 	        stmt = connection.createStatement();
 	        ResultSet rs = stmt.executeQuery(query);
 	        		        
@@ -152,6 +148,8 @@ public class Server extends AsyncTask<String, Void, String> {
 	    		+ "(username, password) VALUES ('"+userName+"' "
 					+ ", '"+password+"')";	    		    
 	    try {
+	    	if (connection == null)
+	    		connectAgain();
 	        stmt = connection.createStatement();
 	        stmt.executeUpdate(query);
 	        		        	        
@@ -176,6 +174,8 @@ public class Server extends AsyncTask<String, Void, String> {
 	    		+ "WHERE username LIKE '"+userName+"' "
 				+ "AND password LIKE '"+password+"'";	    		    
 	    try {
+	    	if (connection == null)
+	    		connectAgain();
 	        stmt = connection.createStatement();
 	        ResultSet rs = stmt.executeQuery(query);
 	        
@@ -207,6 +207,8 @@ public class Server extends AsyncTask<String, Void, String> {
 	    		+ "VALUES ('"+UserID+"', '"+courseSubject+"', "
 	    				+ "'"+courseNumber+"', '"+courseSection+"')";	    		    
 	    try {
+	    	if (connection == null)
+	    		connectAgain();
 	        stmt = connection.createStatement();
 	        stmt.executeUpdate(query);
 	        		        	        
@@ -230,6 +232,8 @@ public class Server extends AsyncTask<String, Void, String> {
 		String query = "SELECT COUNT(*) FROM courses WHERE ID LIKE "+userID+"";
 		
 		try {
+			if (connection == null)
+	    		connectAgain();
 	        stmt = connection.createStatement();	        
 	        ResultSet rs = stmt.executeQuery(query);
 	        
@@ -257,6 +261,8 @@ public class Server extends AsyncTask<String, Void, String> {
 		String query = "SELECT * FROM courses WHERE ID LIKE "+userID+"";
 		
 		try {
+			if (connection == null)
+	    		connectAgain();
 	        stmt = connection.createStatement();	        
 	        ResultSet rs = stmt.executeQuery(query);
 	        
@@ -284,10 +290,17 @@ public class Server extends AsyncTask<String, Void, String> {
 		return courses;		
 	}
 	
+	private void connectAgain(){
+		Thread tread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				connect();
+			}
+		});
+	}
+	
 	@Override
 	protected String doInBackground(String... params) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
-
