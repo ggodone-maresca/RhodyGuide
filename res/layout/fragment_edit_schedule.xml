@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".EditScheduleFragment"
     android:paddingBottom="10dp" >
+    
+    <LinearLayout
+        android:id="@+id/textViews"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+      
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/add"

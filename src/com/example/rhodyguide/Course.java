@@ -36,11 +36,4 @@ public class Course {
 		this.section = section;
 	}
 	
-	
-	
-	
-	
-	
-	
-
 }

@@ -2,6 +2,7 @@ package com.example.rhodyguide;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
@@ -103,7 +104,7 @@ public class MapActivity extends Activity {
 			// on first time display view for first nav item
 			displayView(0);
 		
-		server = new Server();
+		server = new Server(this);
 		server.setup();
 		
 		userID = getIntent().getIntExtra("USERID", -1);
