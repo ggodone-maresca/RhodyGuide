@@ -20,7 +20,7 @@ public class Server extends AsyncTask<String, Void, String> {
 //	private static String username = "abouthil";
 //	private static String password = "=Gqk0TOf*D]I";
 	
-	private static String ipAddress = "172.20.104.99";
+	private static String ipAddress = "192.168.0.15";
 	private static String url = "jdbc:mysql://"+ipAddress+"/Test";
 	private static String username = "root";
 	
@@ -190,7 +190,7 @@ public class Server extends AsyncTask<String, Void, String> {
 		return userID;
 	}
 	
-	public void newCourse(int UserID, String courseSubject, 
+	public void newCourse(int userID, String courseSubject, 
 			String courseNumber, String courseSection,
 			boolean M, boolean T, boolean W, boolean Th, boolean F,
 			String startTime, String endTime,
@@ -211,9 +211,9 @@ public class Server extends AsyncTask<String, Void, String> {
 		
 		Statement stmt = null;
 	    String query = "INSERT INTO courses "
-	    		+ "(course_subject, catalog_number, course_section,"
+	    		+ "(userID, course_subject, catalog_number, course_section,"
 	    		+ "M, T, W, Th, F, start_time, end_time, building, room_number) "
-	    		+ "VALUES ('"+courseSubject+"', '"+courseNumber+"', '"+courseSection+"',"
+	    		+ "VALUES ('"+userID+"', '"+courseSubject+"', '"+courseNumber+"', '"+courseSection+"',"
 	    		+ " '"+m+"', '"+t+"', '"+w+"', '"+th+"', '"+f+"', '"+startTime+"', "
 	    		+ "'"+endTime+"', '"+building_name+"', '"+room_number+"')";
 	    
