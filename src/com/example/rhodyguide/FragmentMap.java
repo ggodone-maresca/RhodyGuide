@@ -1,7 +1,6 @@
 package com.example.rhodyguide;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,23 +9,31 @@ import java.util.concurrent.Future;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.google.android.gms.maps.model.LatLngBounds;
+
 import android.os.Handler;
+
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.CameraUpdate;
+
 import android.os.Message;
+
 import com.google.android.gms.maps.model.VisibleRegion;
  
 public class FragmentMap extends Fragment {
@@ -34,36 +41,50 @@ public class FragmentMap extends Fragment {
 	private GPSTracker mGPS;
 	private LatLng here;
 	private GoogleMap map;
+	private View rootView;
 	
 	/**
-	 * 
 	 * All the map constraints are
 	 * from http://stackoverflow.com/questions/14977078/limit-scrolling-and-zooming-google-maps-android-api-v2
 	 * MINZOOM: The minimum zooming level
 	 * NORTH/SOUTH/EAST/WEST: The map constraints
 	 * mOverscrollHandler: Starts the overscroll handler
-	 *
 	 */
-	public final int MINZOOM = 14;
-	public final double SOUTH = 41.466344,
+	private final int MINZOOM = 14;
+	private final double SOUTH = 41.466344,
     			WEST = -71.569177,
     			NORTH = 41.511234,
-    			EAST = -71.496689;;
-	private OverscrollHandler mOverscrollHandler = new OverscrollHandler();
+    			EAST = -71.496689;
+	
+    private OverscrollHandler mOverscrollHandler = new OverscrollHandler();
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-    	
-		View view = inflater.inflate(R.layout.fragment_map, null, false);
+    	  		
+  		if (rootView != null) {
+  	        ViewGroup parent = (ViewGroup) rootView.getParent();
+  	        if (parent != null)
+  	            parent.removeView(rootView);
+  	    }
+  	    try {
+  	        rootView = inflater.inflate(R.layout.fragment_map, container, false);
+  	    } catch (InflateException e) {
+  	        /* map is already there, just return view as it is  */
+  	    }
+  	    
     	setUpMapIfNeeded();
+    	setupControls();
+	    	
+	    mOverscrollHandler.sendEmptyMessageDelayed(0,100);
 
-		return view;
+    	return rootView;
     }
     
     public void setUpMapIfNeeded() {
     	
-    	map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+    	if (map == null)
+    		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
     	
 		mGPS = new GPSTracker(this.getActivity());	    
     	mGPS.getLocation();
@@ -77,55 +98,70 @@ public class FragmentMap extends Fragment {
     	}
     	
     	here = new LatLng(x, y);
-
-    	// Opens the map at the URI Library
-    	here = new LatLng(41.487352, -71.528847);
-    	//here = new LatLng(mGPS.getLatitude(), mGPS.getLongitude());
     	
         map.setMyLocationEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(here, 15));
         map.addMarker(new MarkerOptions()
                 .title("You are here")
-                .snippet("Rhody Guide")
                 .position(here));
-        try {
-			showBuildings();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }   
     
+    private void setupControls(){
+    	    	 
+         RadioGroup rgViews = (RadioGroup) rootView.findViewById(R.id.rg_views);
+         rgViews.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+  
+             @Override
+             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                 if(checkedId == R.id.rb_normal)
+                     map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                 else if(checkedId == R.id.rb_satellite)
+                     map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                 else if(checkedId == R.id.rb_terrain)
+                     map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+             }
+         }); 
+         
+         RadioGroup rgBuildings = (RadioGroup) rootView.findViewById(R.id.rg_buildings);
+         rgBuildings.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+  
+             @Override
+             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                 if(checkedId == R.id.rb_none)
+         			clearBuildings();
+                 else if(checkedId == R.id.rb_all){
+                     try {
+                    	clearBuildings();
+             			showBuildings();
+             		} catch (InterruptedException e) {
+             			// TODO Auto-generated catch block
+             			e.printStackTrace();
+             		} catch (ExecutionException e) {
+             			// TODO Auto-generated catch block
+             			e.printStackTrace();
+             		}
+                 }
+                 else if(checkedId == R.id.rb_relevant){
+                     try {
+                    	clearBuildings();
+             			showClasses();
+             		} catch (InterruptedException e) {
+             			// TODO Auto-generated catch block
+             			e.printStackTrace();
+             		} catch (ExecutionException e) {
+             			// TODO Auto-generated catch block
+             			e.printStackTrace();
+             		}
+                 }
+             }
+         });
+    }
+    
+    private void clearBuildings() {
+    	map.clear();
+    }
+    
     private void showBuildings() throws InterruptedException, ExecutionException{
-    	
-//    	final CountDownLatch latch = new CountDownLatch(1);
-//    	final Building[][] temp = new Building[1][];
-//    	Thread thread2 = new Thread(new Runnable() {
-//			@Override
-//			public void run() {		
-//		    	
-//		    	Server server = new Server();
-//		    	server.connect();
-//		    	
-//		    	temp[0] = new Building[server.howManyBuildings()];
-//		    	temp[0] = server.pullBuildings();
-//		    	for (int i=0; i< temp[0].length; i++){
-//					System.out.println("Building: "+temp[0][i]);
-//		    	}
-//
-//		    	latch.countDown();
-//			}
-//		});
-//		thread2.start();
-//		try {
-//			latch.await();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
     	 
 	    ExecutorService executor = Executors.newSingleThreadExecutor();
 	    Callable<Building[]> callable = new Callable<Building[]>() {
@@ -150,44 +186,63 @@ public class FragmentMap extends Fragment {
             LatLng pinLocation = new LatLng(x, y);
             map.addMarker(new MarkerOptions()
 	            .position(pinLocation)
-	            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue))
 	            .title(buildings[pin].getBuilding())
 	            .snippet("")
             );
         }    	
     }
-            
-        // Starts the overscroll handler
-//        mOverscrollHandler.sendEmptyMessageDelayed(0,100);
- //   }
     
+    private void showClasses() throws InterruptedException, ExecutionException{
+    
+    	final int userID = ((MapActivity) getActivity()).getUserID();
+    	    	
+    	ExecutorService executor = Executors.newSingleThreadExecutor();
+		Callable<Building[]> callable = new Callable<Building[]>() {
+			@Override
+			public Building[] call() {
+				Server server = new Server(getActivity());
+				server.connect();
+				return server.getCourseLocations(userID);	
+			}
+		};
+		
+		Future<Building[]> future = executor.submit(callable);
+		Building[] buildings = future.get();
+		executor.shutdown();
+				
+		for (int i = 0; i < buildings.length; i++) {
+    		
+            LatLng pinLocation = new LatLng(buildings[i].getX(), buildings[i].getY());
+            map.addMarker(new MarkerOptions()
+	            .position(pinLocation)
+	            .title(buildings[i].getBuilding())
+            );
+        }    	
+	}
+               
     /**
      * Returns the correction for Lat and Lng if camera is trying to get outside of visible map
      * @param cameraBounds Current camera bounds
      * @return Latitude and Longitude corrections to get back into bounds.
      */
     private LatLng getLatLngCorrection(LatLngBounds cameraBounds) {
-        double latitude=0.0,
-        		longitude=0.0;
+        double latitude = 0.0, longitude = 0.0;
+        
         // If the camera is too south
-        if(cameraBounds.southwest.latitude < SOUTH) {
+        if(cameraBounds.southwest.latitude < SOUTH) 
             latitude = SOUTH - cameraBounds.southwest.latitude;
-        }
         
         // If the camera is too west
-        if(cameraBounds.southwest.longitude < WEST) {
+        if(cameraBounds.southwest.longitude < WEST) 
             longitude = WEST - cameraBounds.southwest.longitude;
-        }
         
         // If the camera is too north
-        if(cameraBounds.northeast.latitude > NORTH) {
+        if(cameraBounds.northeast.latitude > NORTH) 
             latitude = NORTH - cameraBounds.northeast.latitude;
-        }
         
         // If the camera is too east
-        if(cameraBounds.northeast.longitude > EAST) {
+        if(cameraBounds.northeast.longitude > EAST) 
             longitude = EAST - cameraBounds.northeast.longitude;
-        }
         return new LatLng(latitude, longitude);
     }
     
@@ -216,4 +271,13 @@ public class FragmentMap extends Fragment {
             sendEmptyMessageDelayed(0,100);
         }
     }
+    
+	@Override
+	public void onDestroyView() {
+	    super.onDestroyView(); 
+	    Fragment fragment = (getFragmentManager().findFragmentById(R.id.map));  
+	    FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+	    ft.remove(fragment);
+	    ft.commit();
+	}
 }

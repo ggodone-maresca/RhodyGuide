@@ -20,7 +20,7 @@ public class Server extends AsyncTask<String, Void, String> {
 //	private static String username = "abouthil";
 //	private static String password = "=Gqk0TOf*D]I";
 	
-	private static String ipAddress = "192.168.0.15";
+	private static String ipAddress = "172.20.104.99";
 	private static String url = "jdbc:mysql://"+ipAddress+"/Test";
 	private static String username = "root";
 	
@@ -262,6 +262,44 @@ public class Server extends AsyncTask<String, Void, String> {
 				} 
 	    }	
 		return count;	
+	}
+	
+	public Building[] getCourseLocations(int userID){
+		
+		Building[] buildings = new Building[howManyCourses(userID)];
+		Statement stmt = null;
+		String query = "SELECT `buildings`.building, x, y FROM `buildings` "
+				+ "INNER JOIN `courses` ON `buildings`.building = `courses`.building "
+				+ "WHERE userID LIKE "+userID;
+		
+		try {
+			if (connection == null)
+	    		connectAgain();
+	        stmt = connection.createStatement();	        
+	        ResultSet rs = stmt.executeQuery(query);
+	        
+	        int i = 0;	        
+	        while (rs.next()){	  
+	        	
+	        	String building = rs.getString("building");
+	        	double x = rs.getDouble("x");
+	        	double y = rs.getDouble("y");
+	        		        	
+	        	buildings[i] = new Building(building, x, y);
+	        	i++;	        
+	        }
+	        
+		} catch (SQLException e ) {
+	    	System.out.println(e.getMessage());
+	    } finally {
+	        if (stmt != null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} 	
+	    }
+		return buildings;		
 	}
 	
 	public Course[] getCourses(int userID){

@@ -4,11 +4,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapActivity" >
-
+    
     <fragment
         android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.google.android.gms.maps.MapFragment" />
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
 
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff" >
+        
+	    <RadioGroup
+	        android:id="@+id/rg_views"
+	        android:orientation="horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" >
+	 
+	        <RadioButton
+	            android:id="@+id/rb_normal"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Normal"
+	            android:checked="true" />
+	 
+	        <RadioButton
+	            android:id="@+id/rb_satellite"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Satellite" />
+	 
+	        <RadioButton
+	            android:id="@+id/rb_terrain"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Terrain" />
+	 
+	    </RadioGroup>
+	    <RadioGroup
+	        android:id="@+id/rg_buildings"
+	        android:orientation="horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" >
+	 
+	        <RadioButton
+	            android:id="@+id/rb_none"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="None"
+	            android:checked="true" />
+	 
+	        <RadioButton
+	            android:id="@+id/rb_all"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="All" />
+	 
+	        <RadioButton
+	            android:id="@+id/rb_relevant"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Relevant" />
+	
+	    </RadioGroup>
+    </LinearLayout>
+    
 </RelativeLayout>

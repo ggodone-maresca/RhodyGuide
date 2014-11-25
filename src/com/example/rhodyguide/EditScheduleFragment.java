@@ -89,7 +89,8 @@ public class EditScheduleFragment extends Fragment implements OnClickListener{
 			
 		    // Set some properties of rowTextView or something
 		    rowTextView.setText(Html.fromHtml("<b>"+course+"</b><br />"+days+" "+time+"<br />"+building));
-		    rowTextView.setHeight(100);
+		    rowTextView.setTextSize(20);
+		    rowTextView.setHeight(130);
 
 		    // Add the TextView to the LinearLayout
 		    ll.addView(rowTextView);
