@@ -2,6 +2,9 @@ package com.example.rhodyguide;
 
 public class Course {
 	
+	/**
+	 * Strings
+	 */
 	private String subject, catalog, section, start, end, building, room, 
 					M = "", T = "", W = "", Th = "", F = "";
 	
@@ -30,6 +33,10 @@ public class Course {
 		this.room = room;	
 	}
 	
+	/**
+	 * Returns concatenated string of days
+	 * @return
+	 */
 	public String getDays() {
 		return M+T+W+Th+F;
 	}
