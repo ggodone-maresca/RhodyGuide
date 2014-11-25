@@ -1,36 +1,30 @@
 package com.example.rhodyguide;
 
-import java.util.Calendar;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.text.Html;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class EditScheduleFragment extends Fragment implements OnClickListener{
 	
@@ -39,6 +33,7 @@ public class EditScheduleFragment extends Fragment implements OnClickListener{
 	private View rootView;
 	private LinearLayout ll;
 	private Spinner buildingList;
+	private final Activity activity = getActivity();
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -87,13 +82,14 @@ public class EditScheduleFragment extends Fragment implements OnClickListener{
 		    // Create a new TextView
 		    final TextView rowTextView = new TextView(getActivity());
 		    
-			String subject = courses[i].getSubject();
-			String catalog = courses[i].getCatalog();
-			String section = courses[i].getSection();
-
+			String course = courses[i].getCourse();
+			String days = courses[i].getDays();
+			String time = courses[i].getTimes();
+			String building = courses[i].getLocation();
+			
 		    // Set some properties of rowTextView or something
-		    rowTextView.setText(Html.fromHtml("<b>"+subject+" "+catalog+"</b> "+section));
-		    rowTextView.setHeight(50);
+		    rowTextView.setText(Html.fromHtml("<b>"+course+"</b><br />"+days+" "+time+"<br />"+building));
+		    rowTextView.setHeight(100);
 
 		    // Add the TextView to the LinearLayout
 		    ll.addView(rowTextView);
@@ -153,29 +149,45 @@ public class EditScheduleFragment extends Fragment implements OnClickListener{
 				final boolean F = Friday.isChecked();
 				
 				final String start = startTime.getText().toString();
-				final String end = startTime.getText().toString();
+				final String end = endTime.getText().toString();
 				
 				final String building_name = building.getSelectedItem().toString();
 				final String room_number = room.getText().toString();
-
-				Thread thread = new Thread(new Runnable(){
-					public void run() {
-						server.connect();
-						server.newCourse(userID, courseSubject, 
-										courseNumber, courseSection,
-										M, T, W, Th, F, start, end,
-										building_name, room_number);
-					}
-				});
-				thread.start();
 				
-				try {
-					clearCourses();
-					printCourses();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
+				String timeRegEx = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+				
+				if (courseSubject == null)
+					toast("Please enter a Subject");
+				else if (courseNumber == null)
+					toast("Please enter a Catalog Number");
+				else if (courseSection == null)
+					toast("Please enter a Course Section");
+				else if (!M && !T && !W && !Th && !F)
+					toast("Please select at least one day");
+				else if (start == null || !start.matches(timeRegEx))
+					toast("Please enter a valid Start Time");
+				else if (end == null || !end.matches(timeRegEx))
+					toast("Please enter a valid End Time");
+				else {
+					Thread thread = new Thread(new Runnable(){
+						public void run() {
+							server.connect();
+							server.newCourse(userID, courseSubject, 
+											courseNumber, courseSection,
+											M, T, W, Th, F, start, end,
+											building_name, room_number);
+						}
+					});
+					thread.start();
+					
+					try {
+						clearCourses();
+						printCourses();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -227,4 +239,13 @@ public class EditScheduleFragment extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		edit(v);
 	}
+	
+    private void toast(CharSequence someMessage){
+    	final CharSequence message = someMessage;
+    	activity.runOnUiThread(new Runnable() {
+			public void run() {
+				Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+			}
+		});
+    }
 }

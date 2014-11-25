@@ -211,11 +211,6 @@ public class Server extends AsyncTask<String, Void, String> {
 		
 		Statement stmt = null;
 	    String query = "INSERT INTO courses "
-	    		+ "(userID, course_subject, catalog_number, section) "
-	    		+ "VALUES ('"+UserID+"', '"+courseSubject+"', "
-	    				+ "'"+courseNumber+"', '"+courseSection+"')";
-	    
-	    String query2 = "INSERT INTO course_locations "
 	    		+ "(course_subject, catalog_number, course_section,"
 	    		+ "M, T, W, Th, F, start_time, end_time, building, room_number) "
 	    		+ "VALUES ('"+courseSubject+"', '"+courseNumber+"', '"+courseSection+"',"
@@ -227,8 +222,6 @@ public class Server extends AsyncTask<String, Void, String> {
 	    		connectAgain();
 	        stmt = connection.createStatement();
 	        stmt.executeUpdate(query);
-	        stmt = connection.createStatement();
-	        stmt.executeUpdate(query2);
 	    } catch (SQLException e ) {
 	    	System.out.println(e.getMessage());
 	    } finally {
@@ -288,9 +281,21 @@ public class Server extends AsyncTask<String, Void, String> {
 	        	
 	        	String subject = rs.getString("course_subject");
 	        	String catalog = rs.getString("catalog_number");
-	        	String section = rs.getString("section");
+	        	String section = rs.getString("course_section");
+	        	int M = rs.getInt("M");
+	        	int T = rs.getInt("T");
+	        	int W = rs.getInt("W");
+	        	int Th = rs.getInt("Th");
+	        	int F = rs.getInt("F");
+	        	String start = rs.getString("start_time");
+	        	String end = rs.getString("end_time");
+	        	String building = rs.getString("building");
+	        	String room = rs.getString("room_number");
 	        	
-	        	courses[i] = new Course(subject, catalog, section);
+	        	courses[i] = new Course(userID, subject, 
+										catalog, section,
+										M, T, W, Th, F, start, end,
+										building, room);
 	        	i++;
 	        }
 	        	        		        	        
