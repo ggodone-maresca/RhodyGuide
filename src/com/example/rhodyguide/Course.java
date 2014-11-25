@@ -33,6 +33,10 @@ public class Course {
 		this.room = room;	
 	}
 	
+	/**
+	 * Returns concatenated string of days
+	 * @return
+	 */
 	public String getDays() {
 		return M+T+W+Th+F;
 	}
