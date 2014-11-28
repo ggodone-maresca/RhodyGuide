@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Login extends Activity {
 	
@@ -20,6 +20,8 @@ public class Login extends Activity {
 	private Server server;
 	
 	private Thread thread;
+	
+	private final Activity activity = this;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +38,25 @@ public class Login extends Activity {
     	password = getPassword();
     	
     	final Intent intent = new Intent(this, MapActivity.class);
-    	    	
+    	
+    	final Activity activity = this;
+    	    	    	
     	thread = new Thread(new Runnable(){
 		    @Override
 		    public void run() {
 		    	
-		        server = new Server();		    	
-		    	server.setup();
+		        server = new Server(activity);		    	
+		    	server.connect();
 		    	
 		    	String[] name = new String[2];
 
 		    	try {
 		    		if (server.checkUser(login, password)){
 		    			
+		    			toast("User Valid");
+		    			
 		    			int userID = server.getID(login, password);
-		    			System.out.println("User valid");
+		    			
 		    			name = server.getName(login, password);
 		    			
 		    	    	intent.putExtra("USERID", userID);
@@ -58,20 +64,25 @@ public class Login extends Activity {
 		    	    	intent.putExtra("LAST", name[1]);
 		    	    	startActivity(intent);
 		    		}
-		    		else {
-		    			System.out.println("Not a user");
-		    			name[0] = "Guest";
-		    			name[1] = "User";
-		    		}
+		    		else
+		    			toast("User Invalid");
+		    		
 		    	} catch(SQLException e){
 		    		e.printStackTrace();
 		    	}
 		    }
 		});
 		thread.start(); 
-  
-    	Log.e("Clicked", "Submit Clicked");
-    }    
+    }
+    
+    private void toast(CharSequence someMessage){
+    	final CharSequence message = someMessage;
+    	activity.runOnUiThread(new Runnable() {
+			public void run() {
+				Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+			}
+		});
+    }
     
     /** Called when the user clicks the Register button */
     public void registerUser(View v) {
@@ -79,16 +90,19 @@ public class Login extends Activity {
     	login = getUser();
     	password = getPassword();
     	
-    	server.newUser(login, password);
-    	
-    	Log.e("Clicked", "Register Clicked");
+    	thread = new Thread(new Runnable(){
+		    @Override
+		    public void run() {
+		    	server = new Server(activity);		    	
+		    	server.connect();
+		    	server.newUser(login, password);
+		    }
+    	});
     }    
     
     /** Called when the user clicks the Guest button */
     public void guestUser(View v) {
-    	
-    	Log.e("Clicked", "Guest Clicked");
-    	
+    	    	
     	Intent intent = new Intent(this, MapActivity.class);
     	startActivity(intent);
     }    

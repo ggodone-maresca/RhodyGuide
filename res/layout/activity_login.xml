@@ -5,22 +5,46 @@
     android:background="@drawable/background"
     android:gravity="center_vertical"
     tools:context="${relativePackage}.${activityClass}" >
-
+    
     <ImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/user"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="false"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="60dp"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@null"
-        android:src="@drawable/ram2" />
+        android:src="@drawable/ram" />
+    
+   <EditText
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pass"
+        android:layout_alignLeft="@+id/pass"
+        android:layout_alignRight="@+id/pass"
+        android:layout_marginBottom="10dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="@string/userHint"
+        android:inputType="textEmailAddress"
+        android:padding="12dp">
+        
+        <requestFocus/>
+    </EditText>
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitButton"
+        android:layout_alignLeft="@+id/submitButton"
+        android:layout_alignRight="@+id/submitButton"
+        android:layout_marginBottom="10dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="@string/passHint"
+        android:inputType="textPassword"
+        android:padding="12dp" />
 
     <ImageButton
         android:id="@+id/guestButton"
@@ -57,33 +81,5 @@
         android:contentDescription="@null"
         android:onClick="submitUser"
         android:src="@drawable/submitbutton" />
-
-    <EditText
-        android:id="@+id/pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submitButton"
-        android:layout_alignLeft="@+id/submitButton"
-        android:layout_alignRight="@+id/submitButton"
-        android:layout_marginBottom="10dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/passHint"
-        android:inputType="textPassword"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/pass"
-        android:layout_alignLeft="@+id/pass"
-        android:layout_alignRight="@+id/pass"
-        android:layout_marginBottom="10dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/userHint"
-        android:inputType="textEmailAddress"
-        android:padding="12dp" />
 
 </RelativeLayout>

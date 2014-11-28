@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 public final class GPSTracker implements LocationListener {
 
@@ -197,6 +198,7 @@ public final class GPSTracker implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+		Toast.makeText(mContext, "GPS Disabled", Toast.LENGTH_SHORT).show();
     }
 
     @Override
