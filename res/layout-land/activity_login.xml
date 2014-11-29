@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="horizontal" >
+
+	<RelativeLayout
+	    android:id="@+id/columnLeft"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_marginRight="255dp"
+	    android:orientation="vertical" >
+	    
+		<ImageView
+		    android:id="@+id/logo"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_marginBottom="40dp"
+		    android:layout_marginLeft="40dp"
+		    android:layout_marginRight="40dp"
+		    android:layout_marginTop="40dp"
+		    android:contentDescription="@null"
+		    android:src="@drawable/ram" />
+
+	</RelativeLayout>
+
+	<RelativeLayout
+	    android:id="@+id/columnRight"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_marginLeft="-240dp"
+	    android:layout_marginRight="8dp"
+	    android:orientation="vertical"
+	    android:gravity="center_vertical" >
+
+	    <EditText
+	        android:id="@+id/pass"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/submitButton"
+	        android:layout_alignRight="@+id/submitButton"
+	        android:layout_below="@+id/user"
+	        android:layout_marginTop="6dp"
+	        android:background="#ffffff"
+	        android:ems="10"
+	        android:hint="@string/passHint"
+	        android:inputType="textPassword"
+	        android:padding="12dp" >
+
+	        <requestFocus />
+	    </EditText>
+
+	    <ImageButton
+	        android:id="@+id/submitButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/pass"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="6dp"
+	        android:background="@null"
+	        android:contentDescription="@null"
+	        android:onClick="submitUser"
+	        android:src="@drawable/submitbutton" />
+
+	    <ImageButton
+	        android:id="@+id/registerButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/submitButton"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="6dp"
+	        android:background="@null"
+	        android:contentDescription="@null"
+	        android:onClick="registerUser"
+	        android:src="@drawable/registerbutton" />
+
+	    <ImageButton
+	        android:id="@+id/guestButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/registerButton"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="6dp"
+	        android:background="@null"
+	        android:contentDescription="@null"
+	        android:onClick="guestUser"
+	        android:src="@drawable/guestbutton" />
+
+	    <EditText
+	        android:id="@+id/user"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/submitButton"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignRight="@+id/submitButton"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="6dp"
+	        android:background="#ffffff"
+	        android:ems="10"
+	        android:hint="@string/userHint"
+	        android:inputType="textEmailAddress"
+	        android:padding="12dp" />
+	</RelativeLayout>
+
+</LinearLayout>

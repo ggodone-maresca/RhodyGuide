@@ -57,11 +57,6 @@
               android:screenOrientation="portrait">
         </activity>
         
-        <!--  My personal SHA1 key, saved here because the other one doesn't work for me. -->
-        <!-- <meta-data
-    android:name="com.google.android.maps.v2.API_KEY"
-    android:value="AIzaSyDJ1v6M1pCcp0M3dqaZnSvnT2ggTH3YP2A" /> -->
-        
         <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
     		android:value="AIzaSyChW4V5EVGsJbqvYmFIQLob8Nl_yiiIuY4"/>
