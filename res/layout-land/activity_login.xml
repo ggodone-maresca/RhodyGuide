@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_land"
+    android:orientation="horizontal" >
+
+	<RelativeLayout
+	    android:id="@+id/columnLeft"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_marginRight="355dp"
+	    android:orientation="vertical" >
+	    
+		<ImageView
+		    android:id="@+id/logo"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_marginBottom="60dp"
+		    android:layout_marginLeft="40dp"
+		    android:layout_marginRight="40dp"
+		    android:layout_marginTop="60dp"
+		    android:contentDescription="@null"
+		    android:src="@drawable/ram" />
+
+	</RelativeLayout>
+
+	<RelativeLayout
+	    android:id="@+id/columnRight"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_marginLeft="-340dp"
+	    android:orientation="vertical"
+	    android:gravity="center_vertical" >
+
+		<EditText
+	       android:id="@+id/user"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_above="@+id/pass"
+	       android:layout_alignParentLeft="true"
+	       android:layout_alignParentRight="true"
+		   android:layout_marginLeft="6dp"
+	       android:layout_marginRight="6dp"
+	       android:layout_marginBottom="6dp"
+	       android:background="#ffffff"
+	       android:ems="10"
+	       android:hint="@string/userHint"
+	       android:inputType="textEmailAddress"
+	       android:padding="12dp" >
+	        
+	        <requestFocus/>
+	    </EditText>
+	
+		<RelativeLayout
+		    android:id="@+id/guestButton"
+		    android:layout_width="match_parent"
+		    android:layout_height="43dp"
+		    android:layout_alignLeft="@+id/pass"
+		    android:layout_alignRight="@+id/pass"
+		    android:layout_alignParentBottom="true"
+		    android:layout_centerHorizontal="true"
+		    android:orientation="horizontal" >
+	
+		    <ImageButton
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_alignParentBottom="true"
+		        android:background="@null"
+		        android:contentDescription="@null"
+		        android:onClick="guestUser"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/button" />
+	
+		    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:contentDescription="@null"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/guest" />
+		</RelativeLayout>
+	
+		<RelativeLayout
+		    android:id="@+id/registerButton"
+		    android:layout_width="match_parent"
+		    android:layout_height="43dp"
+		    android:layout_above="@+id/guestButton"
+		    android:layout_alignLeft="@+id/pass"
+		    android:layout_alignRight="@+id/pass"
+		    android:layout_marginBottom="6dp"
+		    android:layout_centerHorizontal="true"
+		    android:orientation="horizontal" >
+	
+		    <ImageButton
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_alignParentBottom="true"
+		        android:background="@null"
+		        android:contentDescription="@null"
+		        android:onClick="guestUser"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/button" />
+	
+		    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:contentDescription="@null"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/register" />
+		</RelativeLayout>
+	
+		<RelativeLayout
+		    android:id="@+id/submitButton"
+		    android:layout_width="match_parent"
+		    android:layout_height="43dp"
+		    android:layout_above="@+id/registerButton"
+			android:layout_alignLeft="@+id/pass"
+		    android:layout_alignRight="@+id/pass"
+		    android:layout_marginBottom="6dp"
+		    android:layout_centerHorizontal="true"
+		    android:orientation="horizontal" >
+	
+		    <ImageButton
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_alignParentBottom="true"
+		        android:background="@null"
+		        android:contentDescription="@null"
+		        android:onClick="guestUser"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/button" />
+	
+		    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_alignParentLeft="true"
+		        android:contentDescription="@null"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/submit" />
+		</RelativeLayout>
+	
+		<EditText
+		    android:id="@+id/pass"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_above="@+id/submitButton"
+		    android:layout_alignLeft="@+id/user"
+		    android:layout_alignRight="@+id/user"
+		    android:layout_marginBottom="6dp"
+		    android:background="#ffffff"
+		    android:ems="10"
+		    android:hint="@string/passHint"
+		    android:inputType="textPassword"
+		    android:padding="12dp" />
+	</RelativeLayout>
+</LinearLayout>
