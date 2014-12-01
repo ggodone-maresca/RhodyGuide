@@ -269,6 +269,7 @@ public class FragmentMap extends Fragment {
             }
             /* Recursively call handler every 100ms */
             sendEmptyMessageDelayed(0,100);
+            
         }
     }
     
