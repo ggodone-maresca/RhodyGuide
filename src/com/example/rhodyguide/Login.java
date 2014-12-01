@@ -37,6 +37,9 @@ public class Login extends Activity {
     	login = getUser();
     	password = getPassword();
     	
+    	login = "abouthillier";
+    	password = "password";
+    	
     	final Intent intent = new Intent(this, MapActivity.class);
     	
     	final Activity activity = this;
@@ -82,6 +85,7 @@ public class Login extends Activity {
 				Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 			}
 		});
+    	System.out.println(message);
     }
     
     /** Called when the user clicks the Register button */
