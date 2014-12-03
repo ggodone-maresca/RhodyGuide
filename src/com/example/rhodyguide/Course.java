@@ -14,7 +14,7 @@ public class Course {
 			M = "", T = "", W = "", Th = "", F = "";
 
 	/**
-	 * Contructor sets fields
+	 * Constructor sets fields
 	 * 
 	 * @param userID
 	 *            userID
