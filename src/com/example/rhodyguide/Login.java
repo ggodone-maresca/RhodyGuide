@@ -50,7 +50,6 @@ public class Login extends Activity {
 	 * This activity
 	 */
 	private final Activity activity = this;
-<<<<<<< HEAD
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,64 +58,6 @@ public class Login extends Activity {
                
         getActionBar().hide();
     }
-    
-    /** Called when the user clicks the Submit button */
-    public void submitUser(View v) {
-        
-    	login = getUser();
-    	password = getPassword();
-    	
-    	login = "abouthillier";
-    	password = "password";
-    	
-    	final Intent intent = new Intent(this, MapActivity.class);
-    	
-    	final Activity activity = this;
-    	    	    	
-    	thread = new Thread(new Runnable(){
-		    @Override
-		    public void run() {
-		    	
-		        server = new Server(activity);		    	
-		    	server.connect();
-		    	
-		    	String[] name = new String[2];
-
-		    	try {
-		    		if (server.checkUser(login, password)){
-		    			
-		    			toast("User Valid");
-		    			
-		    			int userID = server.getID(login, password);
-		    			
-		    			name = server.getName(login, password);
-		    			
-		    	    	intent.putExtra("USERID", userID);
-		    	    	intent.putExtra("FIRST", name[0]);
-		    	    	intent.putExtra("LAST", name[1]);
-		    	    	startActivity(intent);
-		    		}
-		    		else
-		    			toast("User Invalid");
-		    		
-		    	} catch(SQLException e){
-		    		e.printStackTrace();
-		    	}
-		    }
-=======
-
-	/**
-	 * Method to call on create
-	 * 
-	 * @param savedInstanceState
-	 *            the saved instance state
-	 */
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
-
-		getActionBar().hide();
-	}
 
 	/**
 	 * Called when the user clicks the Submit button
@@ -130,7 +71,6 @@ public class Login extends Activity {
 		password = getPassword();
 
 		final Intent intent = new Intent(this, MapActivity.class);
-
 		final Activity activity = this;
 
 		thread = new Thread(new Runnable() {
@@ -162,7 +102,6 @@ public class Login extends Activity {
 					e.printStackTrace();
 				}
 			}
->>>>>>> origin/GerardsBranch
 		});
 		thread.start();
 	}
@@ -181,42 +120,8 @@ public class Login extends Activity {
 						Toast.LENGTH_SHORT).show();
 			}
 		});
-<<<<<<< HEAD
+
     	System.out.println(message);
-    }
-    
-    /** Called when the user clicks the Register button */
-    public void registerUser(View v) {
-    	
-    	login = getUser();
-    	password = getPassword();
-    	
-    	thread = new Thread(new Runnable(){
-		    @Override
-		    public void run() {
-		    	server = new Server(activity);		    	
-		    	server.connect();
-		    	server.newUser(login, password);
-		    }
-    	});
-    }    
-    
-    /** Called when the user clicks the Guest button */
-    public void guestUser(View v) {
-    	    	
-    	Intent intent = new Intent(this, MapActivity.class);
-    	startActivity(intent);
-    }    
-    
-    private String getUser() {
-    	return ((EditText)findViewById(R.id.user)).getText().toString();
-    }
-    
-    private String getPassword() {
-    	return ((EditText)findViewById(R.id.pass)).getText().toString();
-    }
-    
-=======
 	}
 
 	/**
@@ -269,6 +174,4 @@ public class Login extends Activity {
 	private String getPassword() {
 		return ((EditText) findViewById(R.id.pass)).getText().toString();
 	}
-
->>>>>>> origin/GerardsBranch
 }
