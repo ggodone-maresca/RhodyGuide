@@ -86,7 +86,7 @@
 	        android:layout_alignParentBottom="true"
 	        android:background="@null"
 	        android:contentDescription="@null"
-	        android:onClick="guestUser"
+	        android:onClick="registerUser"
 	        android:scaleType="centerInside"
 	        android:src="@drawable/button" />
 
@@ -115,7 +115,7 @@
 	        android:layout_alignParentBottom="true"
 	        android:background="@null"
 	        android:contentDescription="@null"
-	        android:onClick="guestUser"
+	        android:onClick="submitUser"
 	        android:scaleType="centerInside"
 	        android:src="@drawable/button" />
 

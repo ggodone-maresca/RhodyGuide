@@ -50,7 +50,7 @@ public class Login extends Activity {
 	 * This activity
 	 */
 	private final Activity activity = this;
-
+    
 	/**
 	 * Method to call on create
 	 * 
@@ -126,7 +126,8 @@ public class Login extends Activity {
 						Toast.LENGTH_SHORT).show();
 			}
 		});
-	}
+    	System.out.println(message);
+    }
 
 	/**
 	 * Called when the user clicks the Register button
@@ -135,18 +136,41 @@ public class Login extends Activity {
 	 *            the view
 	 */
 	public void registerUser(View v) {
-
+		
 		login = getUser();
 		password = getPassword();
+		
+		System.out.println("Here");
+		
+		final Intent intent = new Intent(this, MapActivity.class);
 
 		thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				server = new Server(activity);
 				server.connect();
+				
 				server.newUser(login, password);
+				
+				try {
+					if (server.checkUser(login, password)) {
+
+						toast("User Valid");
+
+						int userID = server.getID(login, password);
+
+						intent.putExtra("USERID", userID);
+						startActivity(intent);
+					} else
+						toast("User Invalid");
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		});
+		thread.start();
 	}
 
 	/**
@@ -178,5 +202,4 @@ public class Login extends Activity {
 	private String getPassword() {
 		return ((EditText) findViewById(R.id.pass)).getText().toString();
 	}
-
 }

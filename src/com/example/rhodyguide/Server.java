@@ -16,16 +16,18 @@ public class Server extends AsyncTask<String, Void, String> {
 	private boolean isSetUp = false;
 	private static Connection connection = null;
 	
-//	private static String url = "jdbc:mysql://abouthillier.vps.cs.uri.edu:3306/abouthil_rhodyguide";
+//	private static String url = "jdbc:mysql://abouthillier.vps.cs.uri.edu/abouthil_rhodyguide";
 //	private static String username = "abouthil";
 //	private static String password = "=Gqk0TOf*D]I";
 	
-	private static String ipAddress = "172.20.104.99";
+//	private static String ipAddress = "172.20.104.99";
+//	private static String ipAddress = "131.128.185.84";
+//	private static String ipAddress = "192.185.94.206";
+	private static String ipAddress = "192.168.0.15";
 	private static String url = "jdbc:mysql://"+ipAddress+"/Test";
 	private static String username = "root";
-	
-	private static String url2 = ""+url+"?user="+username+"";
-	
+	private static String password = "";
+		
 	private Activity activity;
 		
 	public Server(Activity activity) {
@@ -49,19 +51,24 @@ public class Server extends AsyncTask<String, Void, String> {
 	}
 	
 	public void connect() {
-		System.out.println("Called");
 		try {
 		    System.out.println("Connecting database...");
-		    connection = DriverManager.getConnection(url2);
+		    connection = DriverManager.getConnection(url, username, password);
 		    System.out.println("Database connected!");
 			isSetUp = true;
 		} catch (SQLException e) {	
-			activity.runOnUiThread(new Runnable() {
-				  public void run() {
-					  Toast.makeText(activity, "Cannot connect to the database", Toast.LENGTH_SHORT).show();
-				  }
-			});
+			toast("Cannot connect to database");
+			System.out.println(e);
 		} 
+	}
+	
+	private void toast(CharSequence someMessage){
+		final CharSequence message = someMessage;
+		activity.runOnUiThread(new Runnable() {
+			  public void run() {
+				  Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+			  }
+		});
 	}
 	
 	public boolean checkUser(String userName, String password)
@@ -145,7 +152,7 @@ public class Server extends AsyncTask<String, Void, String> {
 	    		connectAgain();
 	        stmt = connection.createStatement();
 	        stmt.executeUpdate(query);
-	        		        	        
+	        	        		        	        
 	    } catch (SQLException e ) {
 	    	System.out.println(e.getMessage());
 	    } finally {
@@ -198,15 +205,15 @@ public class Server extends AsyncTask<String, Void, String> {
 		
 		int m = 0, t = 0, w = 0, th = 0, f = 0;
 		
-		if (M == true)
+		if (M)
 			m = 1;
-		if (T == true)
+		if (T)
 			t = 1;
-		if (W == true)
+		if (W)
 			w = 1;
-		if (Th == true)
+		if (Th)
 			th = 1;
-		if (F == true)
+		if (F)
 			f = 1;
 		
 		Statement stmt = null;
